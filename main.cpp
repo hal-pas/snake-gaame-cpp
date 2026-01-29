@@ -43,4 +43,15 @@ cout << "Nieprawidłowy wybór!\n";
 return 0;
 }
 case 2:
-showRules(
+showRules();
+break;
+case 3:
+cout << "Do zobaczenia!\n";
+break;
+default:
+cout << "Nieprawidłowy wybór!\n";
+}
+} while (choice != 3);
+return 0;
+}
+

@@ -45,16 +45,30 @@ cout << "\n";
 cout << "Wynik: " << score << " | Sterowanie: WASD | Q - wyjście\n";
 }
 void Game::handleInput() {
-if (_kbhit()) { // Sprawdź czy klawisz został naciśnięty
-char key = _getch();
-switch(key) {
-case 'w': case 'W': snake.changeDirection(UP); break;
-case 's': case 'S': snake.changeDirection(DOWN); break;
-case 'a': case 'A': snake.changeDirection(LEFT); break;
-case 'd': case 'D': snake.changeDirection(RIGHT); break;
-case 'q': case 'Q': gameOver = true; break;
-}
-}
+    if (_kbhit()) {
+        int key = _getch();
+
+        // Obsługa klawiszy specjalnych (strzałek)
+        if (key == 0 || key == 224) {
+            key = _getch(); // Pobierz właściwy kod strzałki
+            switch (key) {
+                case 72: snake.changeDirection(UP);    break; // Strzałka w górę
+                case 80: snake.changeDirection(DOWN);  break; // Strzałka w dół
+                case 75: snake.changeDirection(LEFT);  break; // Strzałka w lewo
+                case 77: snake.changeDirection(RIGHT); break; // Strzałka w prawo
+            }
+        } 
+        // Obsługa standardowych klawiszy (WASD / Q)
+        else {
+            switch (key) {
+                case 'w': case 'W': snake.changeDirection(UP);    break;
+                case 's': case 'S': snake.changeDirection(DOWN);  break;
+                case 'a': case 'A': snake.changeDirection(LEFT);  break;
+                case 'd': case 'D': snake.changeDirection(RIGHT); break;
+                case 'q': case 'Q': gameOver = true;              break;
+            }
+        }
+    }
 }
 void Game::run() {
 while (!gameOver) {
